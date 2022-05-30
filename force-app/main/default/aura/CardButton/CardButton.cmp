@@ -1,3 +1,5 @@
 <aura:component>
+        
         <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{! c.handleClick }" />
 </aura:component>
+
