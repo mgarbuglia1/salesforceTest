@@ -1,5 +1,3 @@
-<aura:component>
-        
-        <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{! c.handleClick }" />
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+        <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleclick}" />
 </aura:component>
-
