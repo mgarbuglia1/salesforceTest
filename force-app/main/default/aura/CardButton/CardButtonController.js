@@ -1,14 +1,12 @@
 ({
     handleClick : function(component, event, helper) {
 
-        var action = component.get("c.getColor"); //ver si hay que poner GetColor en mayuscula
+        var action = component.get("c.getColor"); 
         action.setParams( { cuentaId : currentRecordId });
 
         var currentRecordId =  component.get("v.recordId");
 
         ParsingJsonDai.getColor(currentRecordId);
-
-
 
  // Create a callback that is executed after 
         // the server-side action returns
@@ -40,21 +38,6 @@
         });
 
     $A.enqueueAction(action);
-
-     //Toasts start
-        if(getColor(currentRecordId)==true){
-            LightningUtils.showToast(
-                "Success!",
-                "The color has been saved successfully",
-                {type: "success"}
-            );
-        } else {
-            LightningUtils.showToast(
-                "Error!",
-                "The color has not been saved.",
-                {type: "error"}
-            );
-        } //Toasts end
 
        
        
