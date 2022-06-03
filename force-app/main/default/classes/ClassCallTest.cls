@@ -4,13 +4,19 @@ public with sharing class ClassCallTest {
     public static void testCallApiCorrect() {
         Account cuenta = new Account();
         cuenta.Name= 'Prueba';
-        insert cuenta;
+        //insert cuenta;
+
+
+        System.runAs(new user(Id = userInfo.getUserId())) {
+            insert cuenta;
+        }
+
 
         //esto da error de llamada desde test hacia Web Services
             //Boolean response =  ClassCall.CallApi(cuenta.id);
             //SSystem.assert(response, 'la respuesta es falsa');
 
-        // Set mock callout class 
+        // Set mock callout class
         Test.setMock(HttpCalloutMock.class, new ApiCalloutMock());
 
         // Call method to test.
@@ -19,6 +25,6 @@ public with sharing class ClassCallTest {
         Color colorMio = new Color();
         colorMio = ClassCall.CallApi(cuenta.id);
         
-        System.assert(colorMio.successful, 'El color no fue insertado correctamente.');    
+        System.assert(colorMio.successful, 'El color no fue insertado correctamente.');
     } 
 }
