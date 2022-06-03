@@ -29,7 +29,7 @@ public with sharing class ClassCallTest {
         System.assertEquals('random color: #23ABC0', colorMio.color);
         System.assertEquals('#23ABC0', colorMio.colorCode);
         //System.assertEquals('2022-05-26T00:32:59.856Z', colorMio.colorDate);
-
         System.assertEquals(DateTime.newInstance(2022, 05, 26, 32, 59, 856), colorMio.colorDate);
+        System.assertEquals(cuenta.Id, colorMio.accountId);
     }
 }
