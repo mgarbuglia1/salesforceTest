@@ -22,8 +22,8 @@ public with sharing class ParsingJsonDai {
                     Color__c colorSf = new Color__c();
                     colorSf.colorCode__c = colorMio.colorCode;
                     colorSf.colorDate__c = colorMio.colorDate;
-                    ///////colorSf.color__c = colorMio.color;
-                    //////colorSf.accountId = colorMio.accountId;
+                    colorSf.Name = colorMio.color;
+                    colorSf.AccountColor__c = colorMio.accountId;
 
                     insert colorSf; 
                 } else {

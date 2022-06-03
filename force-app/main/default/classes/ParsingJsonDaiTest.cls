@@ -16,11 +16,7 @@ public with sharing class ParsingJsonDaiTest {
         Color colorMio = new Color();
         colorMio = ParsingJsonDai.getColor(cuenta.Id); 
 
-
-
-
-      //  Color__c response = ParsingJsonDai.getColor(cuenta.Id);
-      //  System.assert(response, 'La respuesta está mal');
+       System.assert(colorMio.successful, 'El color no fue guardado correctamente'); //no estoy segura
 
     }
     
