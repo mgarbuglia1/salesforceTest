@@ -5,7 +5,6 @@ global with sharing class ParsinJsonDaiMock implements HttpCalloutMock {
             //Ejemplo:
             // System.assertEquals('https://example.com/example/test', req.getEndpoint());
 
-
         // Create a fake response.
         // Set response values, and 
         // return response.
