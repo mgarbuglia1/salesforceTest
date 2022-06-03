@@ -9,24 +9,25 @@ public with sharing class ParsingJsonDai {
                 request.setEndPoint(endpoint);
                 request.setMethod('POST');
                 request.setBody('{ "accountId" : ' + cuentaId + '}');
-                HttpResponse response = httpProtocol.send(request);
+                HttpResponse res = httpProtocol.send(request);
 
-                if(response.getStatusCode()== 200){
-                     Color colorMio = (Color) JSON.deserialize(response.getBody(), Color.class);
-                    colorMio.accountId(cuentaId);
-                    colorMio.successful(true);
+                Color colorMio = new Color();
+
+                if(res.getStatusCode()== 200){
+                    
+                    colorMio = (Color) JSON.deserialize(res.getBody(), Color.class);
+                    colorMio.setAccountId(cuentaId);
+                    colorMio.setSuccessful(true); 
 
                     Color__c colorSf = new Color__c();
-                    colorSf.colorCode = colorMio.colorCode;
-                    colorSf.colorDate = colorMio.colorDate;
-                    colorSf.color = colorMio.color;
-                    colorSf.accountId = colorMio.accountId;
+                    colorSf.colorCode__c = colorMio.colorCode;
+                    colorSf.colorDate__c = colorMio.colorDate;
+                    ///////colorSf.color__c = colorMio.color;
+                    //////colorSf.accountId = colorMio.accountId;
 
-
-                  //como se convierte el color a color__c
-                    insert colorSf; //del tipo Color__c
+                    insert colorSf; 
                 } else {
-                      colorMio.successful(false);
+                      colorMio.setSuccessful(false);
                 }
 
       return colorMio;

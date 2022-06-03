@@ -1,3 +1,4 @@
+@isTest
 global with sharing class ParsinJsonDaiMock implements HttpCalloutMock {
     global HTTPResponse respond(HTTPRequest req) {
             //Se puede hacer un AssertEquals para verificar si req contiene la info que envie yo

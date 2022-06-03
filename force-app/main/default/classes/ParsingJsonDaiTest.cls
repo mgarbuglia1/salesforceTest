@@ -10,12 +10,11 @@ public with sharing class ParsingJsonDaiTest {
         Account cuenta = new Account();
         cuenta.Name = 'nombre';
         insert cuenta;
-
-
         // Call method to test.
         // This causes a fake response to be sent
         // from the class that implements HttpCalloutMock. 
-        HttpResponse res = ParsingJsonDai.getColor(cuenta.Id); //no entiendo porqe llama a la clase y no al mock
+        Color colorMio = new Color();
+        colorMio = ParsingJsonDai.getColor(cuenta.Id); 
 
 
 
