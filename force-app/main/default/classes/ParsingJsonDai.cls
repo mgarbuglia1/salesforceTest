@@ -32,4 +32,12 @@ public with sharing class ParsingJsonDai {
 
       return colorMio;
 }
+
+      public static Color__c getLatest(String cuentaId) {
+           
+            Color__c colorSf = [SELECT name, colorCode__c FROM Color__c WHERE AccountId = :cuentaId ORDER BY colorDate__c ASC LIMIT 1];
+            return colorSf;
+      }
+      
+
 }

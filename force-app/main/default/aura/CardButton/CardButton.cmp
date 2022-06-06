@@ -1,4 +1,8 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global">
+        <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+        <aura:attribute name="codigo" type="String" default= {!c.colorL.colorCode}>
+                <!-- Ver como pasar la variable del controller al atributo de arriba-->
+
         <h1>Colores: </h1>
         <br></br>
 
@@ -16,21 +20,20 @@
 
 
                 <div class="slds-col">
-                                  <div style="background: blue"> 
+                                  <div style="{! 'background:' + v.codigo + ';'}"> 
                                         <br></br>
                                         <br></br>
                                         <br></br>
                                   </div>
                 </div>
 
-                <div class="slds-col">
-                        <br></br>
+                <div style="margin-left: 15px;" class="slds-col">
+                          <p> Color's name: </p>
                 </div>
 
                 
                 <div class="slds-col">
-                     
-                      <p> Color's name </p> 
+                       <br></br>
                 </div>
 
 

@@ -1,7 +1,0 @@
-<aura:component>
-    <div>
-        <p>Aqui va el color</p>
-        <br>
-    </br>
-    </div>
-</aura:component>	
