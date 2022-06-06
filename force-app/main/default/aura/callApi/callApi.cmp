@@ -1,7 +1,31 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global">
-
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="codigo" type="String" />
     
 
-    <lightning:button variant="neutral" 
-    label="Get Color!" title="getColor" onclick="{!c.handleClick }"/>
+    <div class="titulo">
+        <h2>Colors</h2>
+    </div>
+
+    <p><br></br></p>
+
+    <div class="slds-grid">
+        <div class="slds-col">
+            <p>
+                <div>
+                    <lightning:button variant="neutral"
+                    label="Get Color!" title="getColor" onclick="{!c.handleClick }"/>
+                </div>
+            </p>
+        </div>
+        <div class="slds-col">
+            <div class="fondo">
+                <h2>mostrar el color</h2>
+            </div>
+            <textarea readonly="true" style="{! 'height: 60px; width: 100px; background:' + v.codigo + ';'}"></textarea>
+            </textarea>
+           
+        </div>
+    </div>
+ 
 </aura:component>

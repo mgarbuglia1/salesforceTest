@@ -11,34 +11,22 @@
                 //SUCCESS
                 // Alert the user with the value returned from the server
                 //aura show toast
-                showToastTrue();
+
+                helper.showToast('Correcto!','New color added!');
             }
             else{
-                showToastFalse();
+                helper.showToast('Error!','Se produjo un error al intentar agregar un color');
             }
         });
 
         // $A.enqueueAction adds the server-side action to the queue.
         $A.enqueueAction(action);
-    }
-},
-{
-    showToastTrue : function(component, event, helper) {
-        var toastEvent = $A.get("e.force:showToast");
-        toastEvent.setParams({
-            "title": "Correcto!",
-            "message": "New color added!"
-        });
-        toastEvent.fire();
-    }
-},
-{
-    showToastFalse : function(component, event, helper) {
-        var toastEvent = $A.get("e.force:showToast");
-        toastEvent.setParams({
-            "title": "Correcto!",
-            "message": "New color added!"
-        });
-        toastEvent.fire();
-    } 
-})
+    },
+    
+    //evento de inicio
+    doInit : function(component, event, helper) {
+		//console.log('Aura Component Loaded');
+        helper.showToastEmpty();
+	}
+}
+)

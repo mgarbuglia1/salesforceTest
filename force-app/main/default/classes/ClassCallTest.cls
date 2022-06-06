@@ -22,7 +22,7 @@ public with sharing class ClassCallTest {
         // from the class that implements HttpCalloutMock. 
         Color colorMio;
         Test.startTest();
-        colorMio = ClassCall.CallApi(cuenta.id);
+        colorMio = ClassCall.CallApi(cuenta.Id);
         Test.stopTest();
         
         System.assert(colorMio.successful, 'El color no fue insertado correctamente.');
