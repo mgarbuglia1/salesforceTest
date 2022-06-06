@@ -1,2 +1,8 @@
-.THIS {
+.THIS.titulo{
+    font-weight: bold;
+    font-size: 15px;
+}
+.THIS.fondo{
+    background: red;
+    color: blue;
 }
