@@ -13,7 +13,7 @@
                 
                 helper.showToastTrue();
 
-                $A.doInit(); //PREGUNTAR
+             // $A.doInit(); //PREGUNTAR
 
                
             } else if (color.successful === "false") {
@@ -40,12 +40,12 @@
 
             if(colorL===null){
 
-                 helper.showToastEmpty();
+                helper.showToastEmpty();
 
             } else {
 
-            var colorCode = colorL.colorCode;
-            var colorName = colorL.colorName;
+             var colorCode = colorL.colorCode;
+             var colorName = colorL.colorName;
             
             //enviar colorCode al atributo codigo del componente
             }            
