@@ -40,8 +40,7 @@
                 // You would typically fire a event here to trigger 
                 // client-side notification that the server-side 
                 // action is complete
-            }
-            else if (state === "false") {
+            } else if (state === "false") {
                 showToastFalse();
             }
             

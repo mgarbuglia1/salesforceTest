@@ -14,9 +14,6 @@ public class Color {
         public Color(Long Id, String color, String colorCode, Datetime colorDate){
         }
 
-     //   public Color(Long Id, String color, String colorCode, Datetime colorDate, Boolean successful, String accountId){
-     //   } 
-
         //getters y setters 
         public void setSuccessful(Boolean successful) {
             this.successful = successful;

@@ -1,3 +1,40 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global">
-        <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleclick}" />
+        <h1>Colores: </h1>
+        <br></br>
+
+
+        <div class="slds-grid">
+
+                <div class="slds-col">
+                          <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleclick}" />
+                </div>
+
+              
+                <div class="slds-col">
+                        <br></br>
+                </div>
+
+
+                <div class="slds-col">
+                                  <div style="background: blue"> 
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                  </div>
+                </div>
+
+                <div class="slds-col">
+                        <br></br>
+                </div>
+
+                
+                <div class="slds-col">
+                     
+                      <p> Color's name </p> 
+                </div>
+
+
+        </div>
+  
+
 </aura:component>
