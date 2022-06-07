@@ -20,7 +20,7 @@ public with sharing class ClassCall {
 
             Color__c ColorSF = new Color__c();
             ColorSF.Name = colorMio.color;
-            colColorSFrSF.colorCode__c = colorMio.colorCode;
+            ColorSF.colorCode__c = colorMio.colorCode;
             ColorSF.colorDate__c = colorMio.colorDate;
             //inserto la relacion del color con la Account
             ColorSF.AccountColor__c = colorMio.accountId;
@@ -33,9 +33,16 @@ public with sharing class ClassCall {
         return colorMio;
     }
 
+    @AuraEnabled
+    public static Color__c getLatest(String accountId) {
+        List<Color__c> result = [SELECT Name, colorCode__c FROM Color__c WHERE AccountColor__c =:accountId ORDER BY colorDate__c DESC LIMIT 1];
+        
+        Color__c colorRetorno = new Color__c();
 
-    public static Color getLatest(String accountId) {
-        Color__c result = [SELECT Name, colorCode__c FROM Color WHERE AccountId =:accountId ORDER BY colorDate__c DESC LIMIT 1];
-        return result;
+        if(result.size() > 0) {
+            colorRetorno = result.get(0);
+        }
+
+        return colorRetorno;
     }
 }

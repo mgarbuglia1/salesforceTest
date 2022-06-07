@@ -1,7 +1,6 @@
-<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="ClassCall">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="codigo" type="String" />
-    
 
     <div class="titulo">
         <h2>Colors</h2>
@@ -20,11 +19,13 @@
         </div>
         <div class="slds-col">
             <div class="fondo">
-                <h2>mostrar el color</h2>
+                <h2>random color:</h2>
+                <p>{!v.codigo}</p>
             </div>
-            <textarea readonly="true" style="{! 'height: 60px; width: 100px; background:' + v.codigo + ';'}"></textarea>
-            </textarea>
-           
+            <div style="{! 'height: 60px; width: 100px; background:' + v.codigo + ';'}">
+
+            </div>
+
         </div>
     </div>
  
