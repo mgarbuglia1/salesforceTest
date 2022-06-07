@@ -21,7 +21,11 @@ public with sharing class ParsingJsonDai {
 
                     Color__c colorSf = new Color__c();
                     colorSf.colorCode__c = colorMio.colorCode;
-                    colorSf.colorDate__c = colorMio.colorDate;
+
+                     //Insertar fecha que sea en ese momento en vez de adoptar la de la API
+                    colorSf.colorDate__c = datetime.now();
+
+                   
                     colorSf.Name = colorMio.color;
                     colorSf.AccountColor__c = colorMio.accountId;
 
@@ -33,18 +37,24 @@ public with sharing class ParsingJsonDai {
       return colorMio;
 }
 
+@AuraEnabled
       public static Color__c getLatest(String cuentaId) {
            
            List<Color__c> colorSf = new List<Color__c>();
-            colorSf = [SELECT name, colorCode__c FROM Color__c WHERE AccountColor__c = :cuentaId ORDER BY colorDate__c ASC LIMIT 1];
-
+            colorSf = [SELECT name, colorDate__c, colorCode__c FROM Color__c WHERE AccountColor__c = :cuentaId ORDER BY colorDate__c LIMIT 1];
+           
+            System.debug(colorSf.size());
+           
             Color__c color1;
 
             if(colorSf.size()>0){
                  color1 = colorSf.get(0); 
+                 System.debug('La fecha del color brindado por la consulta SOQL es: ' + color1.colorDate__c);
+                  return color1;
+            } else{
+                  return null;
             }
            
-           return color1;
       }
       
 

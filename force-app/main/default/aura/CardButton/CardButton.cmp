@@ -1,11 +1,9 @@
-<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="ParsingJsonDai">
         <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-         <aura:attribute name="codigo" type="String" default="#000000"/>
-              <!-- {!c.colorCode} -->
-
+         <aura:attribute name="codigo" type="String" default="#000000" />
+        
         <h1>Colores: </h1>
         <br></br>
-
 
         <div class="slds-grid">
 
@@ -13,31 +11,16 @@
                           <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleclick}" />
                 </div>
 
-              
-                <div class="slds-col">
-                        <br></br>
-                </div>
-
-
                 <div class="slds-col">    
-                       <p>dfgdfg</p>
-                        <!--    <div style="{!'background' + v.codigo + ';'}">
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                  </div>  -->
+                        <div style="{! 'height: 60px; width: 100px; background:' + v.codigo + ';'}"> 
+                
+                        </div>
                 </div>
 
                 <div style="margin-left: 15px;" class="slds-col">
-                          <p> Color's name: </p>
-                          
+                        <h2>Color's code:</h2>
+                        <p>{!v.codigo}</p>
                 </div>
-
-                
-                <div class="slds-col">
-                       <br></br>
-                </div>
-
 
         </div>
 

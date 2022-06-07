@@ -4,44 +4,52 @@ public with sharing class ParsingJsonDaiTest {
     private static Account cuenta = new Account();
 
     static {
-        cuenta.Name = 'nombre3';
+        cuenta.Name = 'nombre';
         insert cuenta;
     }
 
+    // almacenar colores en "cuenta"
+    //GETLATEST SOLO NECESITA COLORES DEL TIPO Color__c
+    private static Color__c unColor = new Color__c();
+
+    static {
+        //ingresar valores e insertar color
+        //recordar valor cuenta.Id!
+       unColor.colorCode__c = '#123423';
+       unColor.colorDate__c = datetime.now(); //console.debug para obtenerlo
+       unColor.Name = 'Color1';
+       unColor.AccountColor__c = cuenta.Id;
+       insert unColor;
+    }
 
     @isTest
     public static void test1(){
 
-         // Set mock callout class 
         Test.setMock(HttpCalloutMock.class, new ParsinJsonDaiMock());
 
-        
-        // Call method to test.
-        // This causes a fake response to be sent
-        // from the class that implements HttpCalloutMock. 
         Color colorMio;
         Test.startTest();
         colorMio = ParsingJsonDai.getColor(cuenta.Id); 
         Test.stopTest();
 
-       System.assert(colorMio.successful, 'El color no fue guardado correctamente'); 
-       
+        System.assert(colorMio.successful, 'El color no fue guardado correctamente'); 
+        System.assert(colorMio.colorDate != null); 
+
         System.assertEquals('random color: #23ABC0', colorMio.color);
         System.assertEquals('#23ABC0', colorMio.colorCode);
-      //  System.assertEquals('2022-05-26T00:32:59.856Z', colorMio.colorDate); //mal
         System.assertEquals(cuenta.Id, colorMio.getAccountId());
     }
     
 @isTest
     public static void test2(){
-        Color__c colorSf;
-        
+
+        Color__c latestColor;
+
         Test.startTest();
-        colorSf = ParsingJsonDai.getLatest(cuenta.Id);
+        latestColor = ParsingJsonDai.getLatest(cuenta.Id);
         Test.stopTest();
 
-       // System.assert(colorSf, 'No funcionó');
-
+        System.assert(latestColor != null); 
     }
 
 }
