@@ -23,6 +23,7 @@
                     
                         helper.showToast('Success!', 'The record has been updated successfully :)', 'success' );
                         component.set('v.codigo', response.getReturnValue().colorCode);
+                        $A.get('e.force:refreshView').fire();
 
                     } else {
 
