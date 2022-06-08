@@ -2,21 +2,40 @@
     handleClick : function(component, event, helper) {
 
         var action = component.get("c.CallApi");
-        var currentRecordId = component.get('v.getRecordId');
-        action.setParams({ AccountId : currentRecordId });
+        var currentRecordId = component.get("v.recordId");
+        action.setParams({ accountId : currentRecordId });
+
+        console.log('Esta es la cuenta idddddddd:' + currentRecordId);
 
         action.setCallback(this, function(response) {
-            var color = response.getReturnValue();
-            if (color.successful === "true") {
-                //SUCCESS
-                // Alert the user with the value returned from the server
-                //aura show toast
+            var state = response.getState();
 
-                helper.showToast('Correcto!','New color added!');
-                //$A.doInit();
+            if(state === "SUCCESS") {
+                var color = response.getReturnValue();
+                console.log(JSON.parse(JSON.stringify(color)));
+
+                if (color.successful == true) {
+                    helper.showToast('Correcto!','New color added!', 'success');
+                    component.set('v.codigo', response.getReturnValue().colorCode);
+                    //console.log(component.get('v.codigo'));
+                }
+                else{
+                    helper.showToast('Error!','Se produjo un error al intentar agregar un color.', 'warning');
+                } 
             }
-            else{
-                helper.showToast('Error!','Se produjo un error al intentar agregar un color');
+            else if (state === "INCOMPLETE") {
+                // do something
+            }
+            else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log("Error message: " + 
+                                errors[0].message + color);
+                    }
+                } else {
+                    console.log("Unknown error");
+                }
             }
         });
 
@@ -27,27 +46,30 @@
     //evento de inicio
     doInit : function(component, event, helper) {
 
-        var actionMostrar = component.get("c.getLatest");
-        var currentRecordId = component.get('v.getRecordId');
-        actionMostrar.setParams({ accountId : currentRecordId });
+        var action = component.get("c.getLatest");
+        var currentRecordId = component.get("v.recordId");
+        action.setParams({ accountId : currentRecordId });
 
-        actionMostrar.setCallback(this, function(response) {
+        action.setCallback(this, function(response) {
+            //console.log(JSON.parse(JSON.stringify(response.getReturnValue())));
+
+            var respuesta = response.getReturnValue();
             var state = response.getState();
-            if (state === "SUCCESS") {
-                console.log(JSON.parse(JSON.stringify(response.getReturnValue()))); 
 
-                component.set('v.codigo', response.getReturnValue().colorCode__c);
-
-
-                helper.showToast('Correcto!','New color added!');
+            if(state === "SUCCESS") {
+                if(respuesta == null){
+                    //console.log(response.getReturnValue().colorCode__c);
+                    helper.showToastEmpty();
+                }else{
+                    component.set('v.codigo', response.getReturnValue().colorCode__c);
+                }                
             }
             else if (state === "INCOMPLETE") {
                 // do something
             }
             else if (state === "ERROR") {
-                helper.showToastEmpty();
-
-                var errors = response.getError();
+                
+                /*var errors = response.getError();
                 if (errors) {
                     if (errors[0] && errors[0].message) {
                         console.log("Error message: " + 
@@ -55,10 +77,10 @@
                     }
                 } else {
                     console.log("Unknown error");
-                }
+                }*/
             } 
         });
-        $A.enqueueAction(actionMostrar);
+        $A.enqueueAction(action);
 	}
 }
 )

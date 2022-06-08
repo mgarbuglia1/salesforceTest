@@ -7,7 +7,6 @@ public with sharing class ClassCallTest {
         insert cuenta;
     }
 
-    private static Color__c unColor = new Color__c();
     static {
         //ingresar valores e insertar color
         //recordar valor cuenta.Id!
@@ -20,7 +19,7 @@ public with sharing class ClassCallTest {
 
     @isTest
     public static void testCallApiCorrect() {
-        
+        List<Color__c> newColors = [SELECT Id FROM Color__c];
         //esto da error de llamada desde test hacia Web Services
             //Boolean response =  ClassCall.CallApi(cuenta.id);
             //SSystem.assert(response, 'la respuesta es falsa');
@@ -35,6 +34,8 @@ public with sharing class ClassCallTest {
         Test.startTest();
         colorMio = ClassCall.CallApi(cuenta.Id);
         Test.stopTest();
+
+        System.assertEquals(1, newColors.size());
         
         System.assert(colorMio.successful, 'El color no fue insertado correctamente.');
         System.assertEquals('random color: #23ABC0', colorMio.color);
@@ -46,6 +47,8 @@ public with sharing class ClassCallTest {
 
     @isTest
     public static void testGetLatest() {
+        private static Color__c unColor = new Color__c();
+
         Color__c colorPrueba;
         Test.startTest();
         colorPrueba = ClassCall.getLatest(cuenta.Id);

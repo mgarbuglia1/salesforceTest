@@ -1,4 +1,5 @@
 public with sharing class ClassCall {
+
     @AuraEnabled
     public static Color CallApi(String accountId) {
 
@@ -6,17 +7,21 @@ public with sharing class ClassCall {
         HttpRequest request = new HttpRequest();
         request.setEndpoint('https://apitestjefersonsf2.herokuapp.com/avalian/get-color');
         request.setMethod('POST');
-        request.setBody('{"accountId" :' + accountId + '}');
+        request.setHeader('Content-Type', 'application/json');
+        request.setBody('{ "accountId" : "' + accountId + '"}');
 
         HttpResponse response = http.send(request);
-
-        Color colorMio = new Color();
+        Color colorMio;
 
          //If the request is successful, parse the JSON response.
         if(response.getStatusCode() == 200) {
+            //mensaje= 'entró por el 200';
             colorMio = (Color) JSON.deserialize(response.getBody(), Color.class);
+
             colorMio.accountId = accountId;
             colorMio.successful = true;
+
+            System.debug(colorMio);
 
             Color__c ColorSF = new Color__c();
             ColorSF.Name = colorMio.color;
@@ -24,6 +29,8 @@ public with sharing class ClassCall {
             ColorSF.colorDate__c = colorMio.colorDate;
             //inserto la relacion del color con la Account
             ColorSF.AccountColor__c = colorMio.accountId;
+
+            System.debug(ColorSF);
 
             insert ColorSF;
         }
@@ -35,14 +42,15 @@ public with sharing class ClassCall {
 
     @AuraEnabled
     public static Color__c getLatest(String accountId) {
-        List<Color__c> result = [SELECT Name, colorCode__c FROM Color__c WHERE AccountColor__c =:accountId ORDER BY colorDate__c DESC LIMIT 1];
-        
-        Color__c colorRetorno = new Color__c();
+        List<Color__c> result = [SELECT Name, colorCode__c, colorDate__c FROM Color__c WHERE AccountColor__c =:accountId ORDER BY colorDate__c DESC LIMIT 1];
 
-        if(result.size() > 0) {
+        Color__c colorRetorno;
+
+        if(result.size() > 0){
             colorRetorno = result.get(0);
+            return colorRetorno;
+        }else{
+            return null;
         }
-
-        return colorRetorno;
     }
 }
