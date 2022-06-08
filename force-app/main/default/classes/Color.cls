@@ -1,17 +1,21 @@
 
 public class Color {
    
-    public Long Id;
+    @AuraEnabled
     public String color;
+    @AuraEnabled
     public String colorCode;
+    @AuraEnabled
     public Datetime colorDate;
+    @AuraEnabled
     public Boolean successful;
+    @AuraEnabled
     public String accountId;
 
         public Color(){
         } 
 
-        public Color(Long Id, String color, String colorCode, Datetime colorDate){
+        public Color(String color, String colorCode, Datetime colorDate){
         }
 
         //getters y setters 

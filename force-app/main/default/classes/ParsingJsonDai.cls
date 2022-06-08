@@ -8,10 +8,14 @@ public with sharing class ParsingJsonDai {
                 String endpoint = 'https://apitestjefersonsf2.herokuapp.com/avalian/get-color';
                 request.setEndPoint(endpoint);
                 request.setMethod('POST');
-                request.setBody('{ "accountId" : ' + cuentaId + '}');
+                request.setBody('{ "accountId" : "' + cuentaId + '"}');
+                request.setHeader('Content-Type', 'application/json');
                 HttpResponse res = httpProtocol.send(request);
 
                 Color colorMio = new Color();
+                Color__c colorSf = new Color__c();
+
+                  System.debug(res.getStatusCode()); //400
 
                 if(res.getStatusCode()== 200){
                     
@@ -19,20 +23,20 @@ public with sharing class ParsingJsonDai {
                     colorMio.setAccountId(cuentaId);
                     colorMio.setSuccessful(true); 
 
-                    Color__c colorSf = new Color__c();
+     System.debug('El id color' + colorMio.getAccountId());
+
                     colorSf.colorCode__c = colorMio.colorCode;
-
-                     //Insertar fecha que sea en ese momento en vez de adoptar la de la API
-                    colorSf.colorDate__c = datetime.now();
-
-                   
+                    colorSf.colorDate__c = datetime.now();               
                     colorSf.Name = colorMio.color;
                     colorSf.AccountColor__c = colorMio.accountId;
 
-                    insert colorSf; 
+                    insert colorSf; //No esta funcionando el insert
                 } else {
-                      colorMio.setSuccessful(false);
+                      colorMio.setSuccessful(false); 
                 }
+
+                System.debug(colorSf);
+           System.debug(colorMio);
 
       return colorMio;
 }
@@ -41,10 +45,8 @@ public with sharing class ParsingJsonDai {
       public static Color__c getLatest(String cuentaId) {
            
            List<Color__c> colorSf = new List<Color__c>();
-            colorSf = [SELECT name, colorDate__c, colorCode__c FROM Color__c WHERE AccountColor__c = :cuentaId ORDER BY colorDate__c LIMIT 1];
-           
-            System.debug(colorSf.size());
-           
+            colorSf = [SELECT name, colorDate__c, colorCode__c FROM Color__c WHERE AccountColor__c = :cuentaId ORDER BY colorDate__c DESC LIMIT 1];
+         
             Color__c color1;
 
             if(colorSf.size()>0){

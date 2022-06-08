@@ -4,7 +4,8 @@
         var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": titulo,
-                    "message": mensaje
+                    "message": mensaje,
+                    "type" : tipo
                 });
                 toastEvent.fire();
     }, 

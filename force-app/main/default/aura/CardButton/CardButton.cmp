@@ -8,7 +8,7 @@
         <div class="slds-grid">
 
                 <div class="slds-col">
-                          <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleclick}" />
+                          <lightning:button variant="brand-outline" label="Get color" title="Get color" onclick="{!c.handleClick}" />
                 </div>
 
                 <div class="slds-col">    

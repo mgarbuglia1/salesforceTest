@@ -2,28 +2,52 @@
   
     handleClick : function(component, event, helper) {
 
-
         var action = component.get("c.getColor"); 
-        action.setParams( { cuentaId : currentRecordId });
+        var currentRecordId =  component.get("v.recordId"); //ubicacion 
+         action.setParams( { cuentaId : currentRecordId });
 
-        var currentRecordId =  component.get("v.recordId"); //ubicacion
-
+    
         action.setCallback(this, function(response) {
             
-            var color = response.getReturnValue();
-            if (color.successful === "true") {
+           
+            var state = response.getState();
+        console.log(state);
+
+            if (state === "SUCCESS") {
+
+                var color = response.getReturnValue();
+                console.log(color);
                 
-                helper.showToast('Success!', 'The record has been updated successfully :)' );
 
-            } else if (color.successful === "false") {
+                    if (color.successful) {
+                    
+                        helper.showToast('Success!', 'The record has been updated successfully :)', 'success' );
+                        component.set('v.codigo', response.getReturnValue().colorCode);
 
-                helper.showToast('Error.', 'The record has NOT been updated successfully :(');
+                    } else {
+
+                        helper.showToast('Error.', 'The record has NOT been updated successfully :(', 'error');
+                    }
+              
+            }    
+             else if (state === "INCOMPLETE") {
+                // do something
             }
-            
+            else if (state === "ERROR") {
+             
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log("Error message: " + 
+                                errors[0].message);
+                    }
+                } else {
+                    console.log("Unknown error");
+                }
+            } 
         });
 
     $A.enqueueAction(action);
-
     
     },
 
@@ -31,7 +55,7 @@
         
       
         var action = component.get("c.getLatest");
-        var currentRecordId =  component.get("v.recordId"); //Por que esta ubicado asi
+        var currentRecordId =  component.get("v.recordId");
         action.setParams( { cuentaId : currentRecordId });
        
 
