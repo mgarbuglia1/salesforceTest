@@ -17,6 +17,7 @@
                 if (color.successful == true) {
                     helper.showToast('Correcto!','New color added!', 'success');
                     component.set('v.codigo', response.getReturnValue().colorCode);
+                    $A.get('e.force:refreshView').fire();
                     //console.log(component.get('v.codigo'));
                 }
                 else{
